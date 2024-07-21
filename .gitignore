@@ -30,3 +30,5 @@
 *.exe
 *.out
 *.app
+/.vs/true.code.testtask/FileContentIndex/61f005a5-f1cc-4c01-8569-55b478fc5c0f.vsidx
+/true.code.testtask/obj
