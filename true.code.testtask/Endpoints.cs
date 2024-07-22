@@ -12,6 +12,10 @@ public static class Endpoints
             await todoService.CreateTodo(request)
         );
 
+        app.MapGet("api/todo/priorities", () =>
+            Enum.GetValuesAsUnderlyingType<PriorityLevel>()
+        );
+        
         app.MapPost("api/todo/assign", async (AssignRequest request, TodoService todoService) =>
             await todoService.AssignTodo(request)
         );
