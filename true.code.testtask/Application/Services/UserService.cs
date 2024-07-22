@@ -11,6 +11,7 @@ public class UserService(ILogger<UserService> logger, TodoDbContext context)
 
     public async Task<DefaultResult<User[]>> GetAllUsers()
     {
+        using var _ = logger.BeginScope("{action}", "get-all-users");
         try
         {
             var users = await context.Users.AsNoTracking().ToArrayAsync();
@@ -25,6 +26,7 @@ public class UserService(ILogger<UserService> logger, TodoDbContext context)
 
     public async Task<DefaultResult> CreateOrUpdateUser(UserEditModel userModel)
     {
+        using var _ = logger.BeginScope("{action} {userId}", "create-or-update-user", userModel.Id);
         try
         {
             var user = await context.Users.FirstOrDefaultAsync(x => x.Id == userModel.Id) ?? new User();

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Text.Json;
+using Microsoft.EntityFrameworkCore;
 using @true.code.testtask.Application.Contracts;
 using @true.code.testtask.Domain;
 using @true.code.testtask.Domain.Models;
@@ -126,6 +127,8 @@ public class TodoService(ILogger<TodoService> logger, TodoDbContext context)
 
     public async Task<DefaultResult<TodoItem[]>> GetFiltered(TodoFilter filter)
     {
+        using var _ = logger.BeginScope("{action}", "get-filtered");
+        logger.LogInformation("filter {filter}", JsonSerializer.Serialize(filter));
         try
         {
             var filtered = context.TodoItems.AsNoTracking().AsQueryable();
